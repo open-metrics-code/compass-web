@@ -116,19 +116,21 @@ export const lineArea = (opts: {
   };
 };
 
-export const bar = (opts: {
+export const bar = (arg: {
   name: string;
   data: (string | number)[];
+  stack?: string;
 }): BarSeriesOption => {
-  return {
-    name: opts.name,
+  const options: BarSeriesOption = {
+    name: arg.name,
     type: 'bar',
-    data: opts.data,
-    stack: 'Total',
+    data: arg.data,
     emphasis: {
       focus: 'series',
     },
   };
+  if (arg.stack) options.stack = arg.stack;
+  return options;
 };
 
 export const mapToSeries = (
@@ -160,5 +162,5 @@ export const mapToLineAreaSeries = (
 export type ChartComponentProps = {
   loading?: boolean;
   xAxis: string[];
-  yAxis: { name: string; data: (string | number)[] }[];
+  yAxis: { name: string; label: string; data: (string | number)[] }[];
 };
